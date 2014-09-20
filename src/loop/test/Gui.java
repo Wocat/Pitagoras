@@ -44,11 +44,13 @@ public class Gui extends javax.swing.JFrame {
         jRadioButton1 = new javax.swing.JRadioButton();
         jRadioButton2 = new javax.swing.JRadioButton();
         jButton2 = new javax.swing.JButton();
+        jRadioButton3 = new javax.swing.JRadioButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Pitagoras generador");
+        setTitle("Pitagoras");
         setResizable(false);
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jScrollPane1.setViewportView(jTextArea1);
@@ -67,7 +69,7 @@ public class Gui extends javax.swing.JFrame {
             }
         });
 
-        jRadioButton2.setText("Cateto");
+        jRadioButton2.setText("Cateto A");
         jRadioButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jRadioButton2ActionPerformed(evt);
@@ -78,6 +80,13 @@ public class Gui extends javax.swing.JFrame {
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
+            }
+        });
+
+        jRadioButton3.setText("Cateto B");
+        jRadioButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButton3ActionPerformed(evt);
             }
         });
 
@@ -100,11 +109,15 @@ public class Gui extends javax.swing.JFrame {
                 .addComponent(jButton1)
                 .addGap(18, 18, 18)
                 .addComponent(jRadioButton1)
-                .addGap(44, 44, 44)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(jRadioButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addComponent(jButton2)
                 .addGap(22, 22, 22))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(jRadioButton3)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -112,15 +125,20 @@ public class Gui extends javax.swing.JFrame {
                 .addGap(20, 20, 20)
                 .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jRadioButton1)
-                    .addComponent(jRadioButton2)
-                    .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(jButton1)
+                        .addComponent(jRadioButton1)
+                        .addComponent(jButton2))
+                    .addComponent(jRadioButton2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jRadioButton3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 172, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
+
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -131,27 +149,29 @@ public class Gui extends javax.swing.JFrame {
              if(jRadioButton1.isSelected() == true){
                  calcular((int) jSpinner1.getValue());
              }
+             if(jRadioButton3.isSelected() == true){
+                 catetob((int) jSpinner1.getValue());
+             }
              if(jRadioButton2.isSelected() == true){
                  cateto((int) jSpinner1.getValue());
              }
-             if(jRadioButton2.isSelected() == false && jRadioButton1.isSelected() == false){
+             if(jRadioButton2.isSelected() == false && jRadioButton1.isSelected() == false && jRadioButton3.isSelected() == false){
                  jTextArea1.setText("Elige una de las opciones " + nuevalinea);
              }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Gui.class.getName()).log(Level.SEVERE, null, ex);
         }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jRadioButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton1ActionPerformed
-        if(jRadioButton2.isSelected()){
             jRadioButton2.setSelected(false);
-        }
+            jRadioButton3.setSelected(false);
     }//GEN-LAST:event_jRadioButton1ActionPerformed
 
     private void jRadioButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton2ActionPerformed
-                if(jRadioButton1.isSelected()){
-            jRadioButton1.setSelected(false);
-        }
+           jRadioButton1.setSelected(false);
+           jRadioButton3.setSelected(false);
     }//GEN-LAST:event_jRadioButton2ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -162,6 +182,11 @@ public class Gui extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jRadioButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButton3ActionPerformed
+           jRadioButton1.setSelected(false);
+           jRadioButton2.setSelected(false);
+    }//GEN-LAST:event_jRadioButton3ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -203,17 +228,13 @@ public class Gui extends javax.swing.JFrame {
     private javax.swing.JButton jButton2;
     private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JRadioButton jRadioButton2;
+    private javax.swing.JRadioButton jRadioButton3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 public String calcular(int verdad) throws FileNotFoundException{
            String nuevalinea = System.getProperty("line.separator");
-            PrintStream console = System.out;
-		File file = new File("hipotenusa.txt");
-		FileOutputStream fos = new FileOutputStream(file);
-		PrintStream ps = new PrintStream(fos);
-		System.setOut(ps);
              for(int i = 0; i < verdad ; i++){
                 int aleatorio = (int) (Math.random()*1000+1);
                 int aleatorio2 = (int) (Math.random()*1000+1);
@@ -230,11 +251,6 @@ public String calcular(int verdad) throws FileNotFoundException{
 public String cateto(int verdad) throws FileNotFoundException{
     double a, b, c, x;
     String nuevalinea = System.getProperty("line.separator");
-                PrintStream console = System.out;
-		File file = new File("cateto.txt");
-		FileOutputStream fos = new FileOutputStream(file);
-		PrintStream ps = new PrintStream(fos);
-		System.setOut(ps);
     for(int i = 0; i < verdad ; i++){
                  b = (int) (Math.random()*1000+1);
                  c = (int) (Math.random()*1000+1);
@@ -246,5 +262,18 @@ public String cateto(int verdad) throws FileNotFoundException{
 }
         return null;
     
+}
+public String catetob(int verdad){
+    double a, b, c, x;
+    String nuevalinea = System.getProperty("line.separator");
+    for(int i = 0; i < verdad ; i++){
+    a = (int) (Math.random()*1000+1);
+    c = (int) (Math.random()*1000+1);
+    x = ((c*c)-(a*a));
+    b = Math.sqrt(x);
+    String texto = jTextArea1.getText();
+    jTextArea1.setText(texto + "El cateto B de un triangulo de lado "+a+" y hipotenusa "+c+" es " + b + nuevalinea);
+    }
+        return null;
 }
 }
